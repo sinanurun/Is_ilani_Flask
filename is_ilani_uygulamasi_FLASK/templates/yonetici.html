@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <title>
+        {% block sayfa_baslik %}
+Yönetici Sayfası - Ana Sayfa
+{% endblock %}
+    </title>
+</head>
+<body class="text-center" background="/static/yuklemeler/arkaplan.jpg">
+
+<div class="alert alert-success" role="alert">
+   <a href="/yonetici_sayfasi"><img src="/static/yuklemeler/is_ilan_logo.png" width="150" height="150"></a>
+    <img src="/static/yuklemeler/download.jpg" height="150" width="450">
+</div>
+
+
+
+<div class="alert alert-success" role="alert">
+Yerel İş İlan Yönetim Sistemine Hoş Geldiniz Sayın {{ yonetici.yonetici_adi_soyadi.upper() }}<br>
+
+    {% block icerik_baslik %}
+    Aşağıdaki Menü Aracılığı ile Yapmak İstediğiniz İşlemi Seçebilirsiniz
+{% endblock %}
+
+</div>
+
+<div class="container">
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/yonetici_sayfasi">Ana Sayfa <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          İşçi İşlemleri
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/isci_ekle">İşçi Ekle</a>
+            <a class="dropdown-item" href="/isci_guncelle_sil">İşçi Güncelle Sil</a>
+          </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          İşveren İşlemleri
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/isveren_ekle">İşveren Ekle</a>
+            <a class="dropdown-item" href="/isveren_guncelle_sil">İşveren Güncelle Sil</a>
+
+          </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          İş İlanı İşlemleri
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+{#            <a class="dropdown-item" href="/ilan_listesi">İş İlanı Listesi</a>#}
+            <a class="dropdown-item" href="/ilan_ekle">İş İlanı Ekle</a>
+            <a class="dropdown-item" href="/ilan_guncelle_sil">İlan Güncelle Sil</a>
+        </div>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/cikis">Çıkış<span class="sr-only"></span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</div>
+<div class="container">
+{% block icerik %}
+     <div class="alert alert-success" role="alert">
+    Sistemde Kayıtlı bulunan Toplam Açık ilan Sayısı : {{ ilanlar.__len__() }} <br>
+    </div>
+        <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">İlan İd</th>
+      <th scope="col">İlan Başlığı</th>
+      <th scope="col">İlan işyeri</th>
+      <th scope="col">İlan Tarihi</th>
+<th scope="col">İlan Durumu</th>
+        <th scope="col">İlan Detayları</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for ilan in ilanlar %}
+    <tr>
+      <th scope="row">{{ ilan.ilan_id}}</th>
+      <td>{{ ilan.ilan_baslik}}</td>
+      <td>{{ ilan.isyeri.isyeri_adi}}</td>
+      <th>{{ ilan.ilan_tarihi}}</th>
+        <td>{% if ilan.ilan_durum == 0 %}Aktif {% else %} Pasif{% endif %}</td>
+    <td><a href= "/yonetici_ilan_detay/{{ ilan.ilan_id}}" >İlan Detayları</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+
+
+
+
+
+{% endblock %}
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ </body>
+</html>

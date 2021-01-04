@@ -1,0 +1,93 @@
+{% extends "isveren.html" %}
+
+{% block sayfa_baslik %}
+İşveren Sayfası- Başvuran Detayları
+{% endblock %}
+
+{% block icerik_baslik %}
+    Aşağıda Seçili Başvurunun Detaylarını Bulabilirsiniz
+{% endblock %}
+
+    {% block icerik %}
+        <div class="container">
+
+
+
+
+
+
+
+                <table class="table">
+  <thead class="table-danger">
+    <tr>
+      <th scope="col">Başvuran Alan Bilgisi</th>
+      <th scope="col">Başvuran Alan İçeriği</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <th scope="row">İşçi İd</th>
+      <td>{{isci.isci_id}}</td>
+    </tr>
+                        <tr>
+      <th scope="row">İsci Resmi</th>
+      <td><img src="{{isci.isci_foto}}" width="300" height="400"></td>
+    </tr>
+                    <tr>
+      <th scope="row">İsci Adı Soyadı</th>
+      <td>{{isci.isci_adi_soyadi}}</td>
+    </tr>
+                    <tr>
+      <th scope="row">İlan İşci Cinsiyet</th>
+      <td>{% if isci.isci_cinsiyet == 0 %}
+      Erkek
+          {% else %}
+          Kadın
+      {% endif %}</td>
+    </tr>
+                    <tr>
+      <th scope="row">İşçi Mezuniyet</th>
+      <td>{{ isci.mezun.mezun_adi}}</td>
+    </tr>
+                                    <tr>
+      <th scope="row">İşçi Askerlik</th>
+      <td>{{ isci.askerlik.askerlik_adi}}</td>
+    </tr>
+                                    <tr>
+      <th scope="row">İşçi Adres</th>
+      <td>{{ isci.isci_adres}}</td>
+    </tr>
+<tr>
+      <th scope="row">İşçi Telefon</th>
+      <td>{{ isci.isci_tel}}</td>
+    </tr>
+       <tr>
+      <th scope="row">İşçi Email</th>
+      <td>{{ isci.isci_email}}</td>
+    </tr>
+      <tr>
+      <th scope="row">İşçi Özgeçmiş</th>
+      <td><a href="{{ isci.isci_ozgecmis}}">{{isci.isci_adi_soyadi}} Özgeçmişi</a></td>
+       <tr>
+      <th scope="row">İşçi Meslek( *ler* )</th>
+      <td>{% for meslek in meslekler %}
+
+   {% if meslek.meslek_id.__str__() in isci.isci_meslek_idler %} {{ meslek.meslek_adi}} <br>{% endif %}
+
+
+{% endfor %}</td>
+    </tr>
+
+
+
+    </table>
+
+
+
+</div>
+
+    {% endblock %}
+
+

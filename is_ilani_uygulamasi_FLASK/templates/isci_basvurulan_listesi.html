@@ -1,0 +1,42 @@
+{% extends "isci.html" %}
+
+{% block sayfa_baslik %}
+İşçi Sayfası - Başvurulan İlanlar
+{% endblock %}
+
+{% block icerik_baslik %}
+    Tarafınızca Başvurulan ilanlar
+{% endblock %}
+
+
+{% block icerik %}
+<table class="table table-sm table-primary">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">İlan İd</th>
+      <th scope="col">İlan Başlığı</th>
+      <th scope="col">İlan Tarihi</th>
+      <th scope="col">İlan Detayları</th>
+        <th scope="col">Başvuruyu İptal Et</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for ilan in ilanlar %}
+      {% if ilan.basvuran_idler!="" or None %}
+            <tr>
+      <th scope="row">{{ ilan.ilan_id }}</th>
+      <td>{{ ilan.ilan_baslik }}</td>
+      <td>{{ ilan.ilan_tarihi }}</td>
+      <td><a href= "/isci_ilan_detay/{{ ilan.ilan_id}}" >İlan Detayları</a></td>
+    <td><a href= "/isci_ilan_guncelle/{{ ilan.ilan_id}}" >Başvuruyu İptal Et</a></td>
+    </tr>
+      {% endif %}
+
+  {% endfor %}
+
+     </tbody>
+</table>
+
+{% endblock %}
+
+

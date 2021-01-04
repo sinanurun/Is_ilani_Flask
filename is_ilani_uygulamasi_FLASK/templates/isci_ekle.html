@@ -1,0 +1,128 @@
+{% extends "yonetici.html" %}
+
+{% block sayfa_baslik %}
+Yönetici Sayfası - İşçi Ekleme Sayfası
+{% endblock %}
+
+{% block icerik_baslik %}
+
+    Aşağıdaki Formu Doldurarak Yeni İşçi Sisteme Ekleyebilirsiniz
+{% endblock %}
+
+
+{% block icerik %}
+    
+    {% if mesaj %}
+
+    <div class="alert alert-success" role="alert">
+
+ İşçi Ekleme İşleminiz {{ mesaj }} İle Sonuçlanmıştır<br>
+    Yukarıda Bulunan Menü Aracılığı ile Yapmak İstediğiniz İşlemi Seçebilirsiniz
+
+
+</div>
+     {% else %}
+        <form action="isci_ekle" method="post" enctype="multipart/form-data">
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label>İşçi Adı Soyadı</label>
+      <input type="text" class="form-control" id="inputEmail4" placeholder="İşçi Adı Soyadı" name="isci_adi_soyadi">
+    </div>
+    <div class="form-group col-md-4">
+      <label >İşçi TC No</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="İşçi TC No" name="isci_tc">
+    </div>
+          <div class="form-group col-md-4">
+      <label >İşçi Şifre</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="Şifre" name="isci_sifre">
+    </div>
+
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label >Telefon</label>
+      <input type="text" class="form-control" id="inputEmail4" placeholder="Telefon" name="isci_tel">
+    </div>
+    <div class="form-group col-md-4">
+      <label >Adres</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="Adres" name="isci_adres">
+    </div>
+         <div class="form-group col-md-4">
+      <label >E mail</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="E Mail" name="isci_email">
+    </div>
+  </div>
+   <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputState">Mezuniyet Durumu</label>
+      <select id="inputState" class="form-control" name="isci_mezuniyet">
+          {% for mezun in bilgiler[0] %}
+        <option selected value="{{ mezun. mezun_id}}">{{ mezun. mezun_adi}}</option>
+          {% endfor %}
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">Askerlik</label>
+      <select id="inputState" class="form-control" name="isci_askerlik">
+          {% for asker in bilgiler[1] %}
+        <option selected value="{{ asker.askerlik_id}}">{{ asker.askerlik_adi}}</option>
+          {% endfor %}
+      </select>
+    </div>
+    <div class="form-group col-md-4" >
+      <label for="inputState">Cinsiyet</label>
+      <select id="inputState" class="form-control" name="isci_cinsiyet">
+        <option value="0">Erkek</option>
+          <option value="1">Kadın</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputState">İşçi Meslekleri</label><br>
+         <ul tabindex="0">
+{% for meslek in bilgiler[2] %}
+
+    <li tabindex="-1"><input type="checkbox" name="isci_meslek_idler" value="{{meslek.meslek_id}}"> {{ meslek.meslek_adi}}
+</li>
+{% endfor %}
+</ul>
+    </div>
+    <div class="form-group col-md-4">
+<label for="inputState">İşçi Özgeçmiş Ekle</label>
+<input type="file"  class="form-control" name="isci_ozgecmis" placeholder="Özgeçmiş Seçiniz">
+    </div>
+    <div class="form-group col-md-4" >
+  <label for="inputState">İşçi Resmi Ekle</label>
+<input type="file"  class="form-control" name="isci_foto" placeholder="Resim Seçiniz">
+  </div>
+
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputState">İşçi Durum</label>
+      <select id="inputState" class="form-control" name="isci_durum">
+        <option selected value="0">Aktif</option>
+        <option value="1">Pasif</option>
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+<label>İşçi Doğum Tarihi (YYYY-AA-GG)</label>
+      <input type="text" class="form-control" id="inputEmail4" placeholder="YYYY-AA-GG" name="isci_dogum_tarihi">
+    </div>
+    <div class="form-group col-md-4" >
+  <br>
+      <button type="submit" class="btn btn-primary" >İşçi Ekle</button>
+    </div>
+  </div>
+
+
+
+</form>
+
+    {% endif %}
+
+
+
+{% endblock %}

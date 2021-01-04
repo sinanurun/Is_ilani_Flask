@@ -1,0 +1,60 @@
+{% extends "yonetici.html" %}
+
+{% block sayfa_baslik %}
+Yönetici Sayfası - İşveren Güncelleme ve Silme Sayfası
+{% endblock %}
+
+{% block icerik_baslik %}
+ İŞKUR İş ve İşçi İlan Sitesi İşveren Güncelleme ve Silme Sayfasındasınız {{ yonetici.yonetici_adi_soyadi.upper() }}<br>
+    Aşağıda Sizin Yönetiminizde bulunan İşverenlerin Listesini Bulabilirsiniz
+{% endblock %}
+
+
+
+
+
+
+
+    {% block icerik %}
+    <div class="alert alert-success" role="alert">
+    Size Tanımlı Toplam İşçi Sayısı : {{ isverenler.__len__() }} <br>
+    </div>
+        <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">İşyeri İd</th>
+      <th scope="col">İşyeri Adı</th>
+      <th scope="col">işveren Adı Soyadı</th>
+        <th scope="col">İşyeri Telefon</th>
+      <th scope="col">İşyeri Durum</th>
+      <th scope="col">İşyeri Güncelle</th>
+      <th scope="col">İşyer Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for isveren in isverenler %}
+    <tr>
+      <th scope="row">{{isveren.isyeri_id}}</th>
+      <td>{{ isveren.isyeri_adi}}</td>
+      <td>{{ isveren.isyeri_yonetici_adi_soyadi}}</td>
+
+      <td>{{ isveren.isyeri_tel}}</td>
+
+
+            {% if isveren.isyeri_durum == 0 %}
+      <td>Aktif</td>
+        {% else %}
+        <td>Pasif</td>
+        {% endif %}
+      <th><a href= "/isveren_guncelle/{{isveren.isyeri_id}}" >İşyeri Güncelle</a></th>
+      <th><a href="/isveren_sil/{{isveren.isyeri_id}}" >İşyeri Sil</a></th>
+
+    </tr>
+    {% endfor %}
+    </table>
+
+
+
+    {% endblock %}
+
+

@@ -1,0 +1,86 @@
+{% extends "yonetici.html" %}
+
+{% block sayfa_baslik %}
+Yönetici Sayfası - İşveren Ekleme Sayfası
+{% endblock %}
+
+{% block icerik_baslik %}
+ İŞKUR İş ve İşçi İlan Sistemi İşveren Ekleme Sayfasındasınız {{ yonetici.yonetici_adi_soyadi.upper() }}<br>
+    Aşağıdaki Formu Doldurarak Yeni İşveren Sisteme Ekleyebilirsiniz
+{% endblock %}
+
+
+{% block icerik %}
+    
+    {% if mesaj %}
+
+    <div class="alert alert-success" role="alert">
+
+ İşveren Ekleme İşleminiz {{ mesaj }} İle Sonuçlanmıştır<br>
+    Yukarıda Bulunan Menü Aracılığı ile Yapmak İstediğiniz İşlemi Seçebilirsiniz
+
+
+</div>
+     {% else %}
+        <form action="isveren_ekle" method="post" enctype="multipart/form-data">
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label>İşyerinin Adı Soyadı</label>
+      <input type="text" class="form-control" id="inputEmail4" placeholder="İşyerinin Adı" name="isyeri_adi">
+    </div>
+          <div class="form-group col-md-3">
+      <label>İşverenin Adı Soyadı</label>
+      <input type="text" class="form-control" id="inputEmail4" placeholder="İşyerinin Adı" name="isyeri_yonetici_adi_soyadi">
+    </div>
+    <div class="form-group col-md-3">
+      <label >İşveren TC No</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="İşveren TC No" name="isyeri_tc">
+    </div>
+          <div class="form-group col-md-3">
+      <label >İşveren Şifre</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="Şifre" name="isyeri_sifre">
+    </div>
+
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label >Telefon</label>
+      <input type="text" class="form-control" id="inputEmail4" placeholder="Telefon" name="isyeri_tel">
+    </div>
+    <div class="form-group col-md-4">
+      <label >Adres</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="Adres" name="isyeri_adres">
+    </div>
+         <div class="form-group col-md-4">
+      <label >E mail</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="E Mail" name="isyeri_email">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputState">İşyeri Durum</label>
+      <select id="inputState" class="form-control" name="isyeri_durum">
+        <option selected value="0">Aktif</option>
+        <option value="1">Pasif</option>
+      </select>
+    </div>
+<div class="form-group col-md-4" >
+                                <label for="inputState">İşveren Resmi Ekle</label>
+                                <input type="file"  class="form-control" name="isyeri_foto" placeholder="Resim Seçiniz">
+                      </div>
+    <div class="form-group col-md-4" >
+  <br>
+      <button type="submit" class="btn btn-primary" >İşyeri Ekle</button>
+    </div>
+  </div>
+
+
+
+</form>
+
+    {% endif %}
+
+
+
+{% endblock %}

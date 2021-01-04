@@ -1,0 +1,88 @@
+{% extends "isveren.html" %}
+
+{% block sayfa_baslik %}
+İşveren Sayfası - İlan Güncelleme Sayfası
+{% endblock %}
+
+{% block icerik_baslik %}
+    Aşağıdaki Formu Doldurarak İş İlanını Sistemde Güncelleyebilirsiniz
+{% endblock %}
+
+
+{% block icerik %}
+    
+    {% if mesaj %}
+
+    <div class="alert alert-success" role="alert">
+
+Güncelleme İşleminiz {{ mesaj }} İle Sonuçlanmıştır<br>
+ Yukarıda Bulunan Menü Aracılığı ile Yapmak İstediğiniz İşlemi Seçebilirsiniz
+
+
+</div>
+     {% else %}
+
+   <form action="/isveren_ilan_guncelle" method="post">
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label>İşyeri Bilgisi</label><br>
+           {{isveren.isyeri_adi }}
+    </div>
+    <div class="form-group col-md-3">
+      <label >İlan Başlık</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="İlan Başlık" name="ilan_baslik" value="{{ ilan.ilan_baslik }}">
+    </div>
+          <div class="form-group col-md-3">
+      <label >Aidat Tarihi(YYYY-AA-GG)</label>
+
+      <input type="text" class="form-control" id="inputPassword4"  name="ilan_tarihi" value="{{ ilan.ilan_tarihi }}">
+    </div>
+<div class="form-group col-md-3">
+      <label for="inputState">İlan Meslekleri</label><br>
+         <ul tabindex="0">
+{% for meslek in meslekler %}
+
+    <li tabindex="-1"><input type="checkbox" name="meslek_idler"  {% if meslek.meslek_id.__str__() in ilan.meslek_idler %} checked="checked" {% endif %} value="{{meslek.meslek_id}}"> {{ meslek.meslek_adi}}
+</li>
+{% endfor %}
+</ul>
+    </div>
+
+
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="inputState">İlan Açıklama</label>
+
+        <textarea class="form-control" rows="3" id="comment" placeholder="İlan Açıklaması" name="ilan_icerik" >{{ ilan.ilan_icerik }}</textarea>
+    </div>
+          <div class="form-group col-md-3">
+      <label for="inputState">İlan Anahtar Kelimeleri ("," ile ayırınız)</label>
+
+        <textarea class="form-control" rows="3" id="comment" placeholder="İlan Anahtar Kelimeleri" name="anahtarkelime_idler">{{ ilan.anahtarkelime_idler }}</textarea>
+    </div>
+
+          <div class="form-group col-md-3">
+      <label>İlan Durumu</label>
+            <select id="inputState" class="form-control" name="ilan_durum">
+
+        <option value="0">Aktif</option>
+                        <option value="1">Pasif</option>
+
+      </select>
+    </div>
+
+    <div class="form-group col-md-3" >
+  <br>
+        <input type="hidden" name="ilan_id" value={{ ilan.ilan_id }}>
+      <button type="submit" class="btn btn-primary" >İlan Ekle</button>
+    </div>
+  </div>
+
+</form>
+
+    {% endif %}
+{% endblock %}
+
+

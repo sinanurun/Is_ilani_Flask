@@ -1,0 +1,51 @@
+{% extends "yonetici.html" %}
+
+{% block sayfa_baslik %}
+Yönetici Sayfası - Bağış Güncelleme ve Silme Sayfası
+{% endblock %}
+
+{% block icerik_baslik %}
+ Balçova Eğitmenler Derneği Bağış Güncelleme ve Silme Sayfasındasınız {{ yonetici.uye_adi_soyadi.upper() }}<br>
+    Aşağıda Derneğinize Kayıtlı Bulunan Bağışların Listesini Bulabilirsiniz
+{% endblock %}
+
+
+
+
+
+
+
+    {% block icerik %}
+    <div class="alert alert-success" role="alert">
+    Derneğe Kayıtlı bulunan Toplam Bağış Sayısı : {{ bagislar.__len__() }} <br>
+    </div>
+        <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Bağışçı Adı Soyadı</th>
+      <th scope="col">Bağış Tutarı</th>
+      <th scope="col">Bağış Tarihi</th>
+      <th scope="col">Bağış Güncelle</th>
+      <th scope="col">Bağış Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for bagis in bagislar %}
+    <tr>
+      <th scope="row">{{ bagis.bagis_id}}</th>
+      <td>{{ bagis.bagis_yapan }}</td>
+      <td>{{ bagis.bagis_tutari}}</td>
+      <th>{{bagis.bagis_tarihi}}</th>
+      <th><a href= "/bagis_guncelle/{{bagis.bagis_id }}" >Bağış Güncelle</a></th>
+      <th><a href="/bagis_sil/{{bagis.bagis_id }}" >Bağış Sil</a></th>
+
+    </tr>
+    {% endfor %}
+    </table>
+
+
+
+    {% endblock %}
+
+

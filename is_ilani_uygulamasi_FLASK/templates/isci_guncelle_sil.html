@@ -1,0 +1,54 @@
+{% extends "yonetici.html" %}
+
+{% block sayfa_baslik %}
+Yönetici Sayfası - İşçi Güncelleme ve Silme Sayfası
+{% endblock %}
+{% block icerik_baslik %}
+    Aşağıda Sistemde Bulunan İşçilerin Listesini Bulabilirsiniz
+{% endblock %}
+
+    {% block icerik %}
+    <div class="alert alert-success" role="alert">
+    Size Tanımlı Toplam İşçi Sayısı : {{ isciler.__len__() }} <br>
+    </div>
+        <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">İşçi İd</th>
+      <th scope="col">İşçi Adı Soyadı</th>
+      <th scope="col">işçi Cinsiyet</th>
+        <th scope="col">İşçi Telefon</th>
+      <th scope="col">Üye Durum</th>
+      <th scope="col">İşçi Güncelle</th>
+      <th scope="col">İşçi Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for isci in isciler %}
+    <tr>
+      <th scope="row">{{isci.isci_id}}</th>
+      <td>{{ isci.isci_adi_soyadi}}</td>
+
+              {% if isci.isci_cinsiyet == 0 %}
+      <td>Erkek</td>
+        {% else %}
+        <td>Kadın</td>
+        {% endif %}
+<td>{{ isci.isci_tel}}</td>
+            {% if isci.isci_durum == 0 %}
+      <td>Aktif</td>
+        {% else %}
+        <td>Pasif</td>
+        {% endif %}
+      <th><a href= "/isci_guncelle/{{isci.isci_id}}" >İşçi Güncelle</a></th>
+      <th><a href="/isci_sil/{{isci.isci_id}}" >İşçi Sil</a></th>
+
+    </tr>
+    {% endfor %}
+    </table>
+
+
+
+    {% endblock %}
+
+

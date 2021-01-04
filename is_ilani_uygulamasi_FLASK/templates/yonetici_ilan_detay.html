@@ -1,0 +1,65 @@
+{% extends "yonetici.html" %}
+
+{% block sayfa_baslik %}
+Yönetici Sayfası -İlan Detayları Sayfası
+{% endblock %}
+
+{% block icerik_baslik %}
+    Aşağıda Seçili İlanın Detaylarını Bulabilirsiniz
+{% endblock %}
+
+    {% block icerik %}
+        <div class="container">
+
+                <table class="table">
+  <thead class="thead-dark ">
+    <tr>
+      <th scope="col">İlan Alan Bilgisi</th>
+      <th scope="col">İlan Alan İçeriği</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <th scope="row">İlan İd</th>
+      <td>{{ ilan.ilan_id}}</td>
+    </tr>
+                    <tr>
+      <th scope="row">İlan Başlık</th>
+      <td>{{ ilan.ilan_baslik}}</td>
+    </tr>
+                    <tr>
+      <th scope="row">İlan İçerik</th>
+      <td>{{ ilan.ilan_icerik}}</td>
+    </tr>
+                    <tr>
+      <th scope="row">İlan Tarihi</th>
+      <td>{{ ilan.ilan_tarihi}}</td>
+    </tr>
+
+                     <tr>
+      <th scope="row">İlan Firması</th>
+      <td><a href="/yonetici_firma_detay/{{ilan.ilan_id  }}/{{ilan.isyeri_id  }}">{{ ilan.isyeri.isyeri_adi}}</a></td>
+    </tr>
+
+                                        <tr>
+      <th scope="row">İlana Başvuranlar</th>
+      <td>
+          {% for kisiler in isciler %}
+          <a href="/yonetici_basvuran_detay/{{ilan.ilan_id  }}/{{kisiler.isci_id  }}">{{kisiler.isci_adi_soyadi  }}</a>
+          <br>
+          {% endfor %}
+
+      </td>
+    </tr>
+
+
+    </table>
+
+
+</div>
+
+    {% endblock %}
+
+

@@ -1,0 +1,66 @@
+{% extends "yonetici.html" %}
+
+{% block sayfa_baslik %}
+Yönetici Sayfası- Firma Detayları
+{% endblock %}
+
+{% block icerik_baslik %}
+    Aşağıda Seçili Firmanın Detaylarını Bulabilirsiniz
+{% endblock %}
+
+    {% block icerik %}
+        <div class="container">
+
+
+
+
+
+
+
+                <table class="table">
+  <thead class="table-danger">
+    <tr>
+      <th scope="col">Başvuran Alan Bilgisi</th>
+      <th scope="col">Başvuran Alan İçeriği</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <th scope="row">Firma İd</th>
+      <td>{{isyeri.isyeri_id}}</td>
+    </tr>
+                        <tr>
+      <th scope="row">İşyeri Resmi</th>
+      <td><img src="{{isyeri.isyeri_foto}}" width="300" height="400"></td>
+    </tr>
+                    <tr>
+      <th scope="row">Yönetici Adı Soyadı</th>
+      <td>{{isyeri.isyeri_yonetici_adi_soyadi}}</td>
+    </tr>
+                    <tr>
+      <th scope="row">İşyeri Email</th>
+      <td>{{ isyeri.isyeri_email}}</td>
+    </tr>
+                    <tr>
+      <th scope="row">İşyeri Telefon</th>
+      <td>{{ isyeri.isyeri_tel}}</td>
+    </tr>
+
+                                    <tr>
+      <th scope="row">İşyeri Adres</th>
+      <td>{{ isyeri.isyeri_adres}}</td>
+    </tr>
+
+
+
+    </table>
+
+
+
+</div>
+
+    {% endblock %}
+
+

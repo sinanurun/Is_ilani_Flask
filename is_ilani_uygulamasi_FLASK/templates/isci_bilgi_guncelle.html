@@ -1,0 +1,141 @@
+{% extends "isci.html" %}
+
+{% block sayfa_baslik %}
+İşçi Sayfası - İşçi GüncellemeSayfası
+{% endblock %}
+
+{% block icerik_baslik %}
+    Aşağıdaki Formu Doldurarak Bilgilerinizi Güncelleyebilirsiniz
+{% endblock %}
+
+
+{% block icerik %}
+
+    {% if mesaj %}
+
+    <div class="alert alert-success" role="alert">
+
+İşçi Güncelleme İşleminiz {{ mesaj }} İle Sonuçlanmıştır<br>
+ Yukarıda Bulunan Menü Aracılığı ile Yapmak İstediğiniz İşlemi Seçebilirsiniz
+
+
+</div>
+     {% else %}
+
+
+        <form action="/isci_bilgi_guncelle" method="post" enctype="multipart/form-data">
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label>İşçi Adı Soyadı</label>
+      <input type="text" class="form-control" id="inputEmail4" placeholder="İşçi Adı Soyadı" name="isci_adi_soyadi" value="{{ isciler.isci_adi_soyadi }}">
+    </div>
+    <div class="form-group col-md-4">
+      <label >İşçi TC No</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="İşçi TC No" name="isci_tc" value="{{ isciler.isci_tc }}">
+    </div>
+          <div class="form-group col-md-4">
+      <label >İşçi Şifre</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="Şifre" name="isci_sifre" value="{{ isciler.isci_sifre }}">
+    </div>
+
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label >Telefon</label>
+      <input type="text" class="form-control" id="inputEmail4" placeholder="Telefon" name="isci_tel" value="{{ isciler.isci_tel }}">
+    </div>
+    <div class="form-group col-md-4">
+      <label >Adres</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="Adres" name="isci_adres" value="{{ isciler.isci_adres }}">
+    </div>
+         <div class="form-group col-md-4">
+      <label >E mail</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="E Mail" name="isci_email" value="{{ isciler.isci_email }}">
+    </div>
+  </div>
+   <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputState">Mezuniyet Durumu</label>
+      <select id="inputState" class="form-control" name="isci_mezuniyet">
+          {% for mezun in bilgiler[0] %}
+        <option  value="{{ mezun. mezun_id}}" {% if isciler.isci_mezuniyet == mezun. mezun_id %}
+        selected
+        {% endif %}
+        >{{ mezun. mezun_adi}}</option>
+          {% endfor %}
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">Askerlik</label>
+      <select id="inputState" class="form-control" name="isci_askerlik">
+          {% for asker in bilgiler[1] %}
+        <option value="{{ asker.askerlik_id}}" {% if isciler.isci_askerlik==asker.askerlik_id %} selected {% endif %}>{{ asker.askerlik_adi}}</option>
+          {% endfor %}
+      </select>
+    </div>
+    <div class="form-group col-md-4" >
+      <label for="inputState">Cinsiyet</label>
+      <select id="inputState" class="form-control" name="isci_cinsiyet">
+         {% if isciler.isci_cisniyet==0 %}
+.        <option value="0" selected>Erkek</option>
+             <option value="1">Kadın</option>
+             {% else %}
+                  <option value="0">Erkek</option>
+             <option value="1" selected>Kadın</option>
+        {% endif %}}
+
+      </select>
+    </div>
+  </div>
+
+          <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputState">İşçi Meslekleri</label><br>
+         <ul tabindex="0">
+{% for meslek in bilgiler[2] %}
+
+    <li tabindex="-1"><input type="checkbox" {% if meslek.meslek_id.__str__() in isciler.isci_meslek_idler %} checked="checked" {% endif %}
+                             name="isci_meslek_idler" value="{{meslek.meslek_id}}"> {{ meslek.meslek_adi}}
+</li>
+{% endfor %}
+</ul>
+    </div>
+    <div class="form-group col-md-4">
+<label for="inputState"><a href="{{ isciler.isci_ozgecmis }}" target="_blank">
+
+İşçi Özgeçmiş</a> </label>
+<input type="file"  class="form-control" name="isci_ozgecmis" placeholder="Özgeçmiş Seçiniz">
+    </div>
+    <div class="form-group col-md-4" >
+  <label for="inputState">İşçi Resmi</label><br>
+        <img src="{{ isciler.isci_foto }}" width="200" height="300"><br>
+<input type="file"  class="form-control" name="isci_foto" placeholder="Resim Seçiniz">
+  </div>
+
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputState">İşçi Durum</label>
+      <select id="inputState" class="form-control" name="isci_durum">
+        <option selected value="0">Aktif</option>
+        <option value="1">Pasif</option>
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+<label>İşçi Doğum Tarihi (YYYY-AA-GG)</label>
+      <input type="text" class="form-control" id="inputEmail4" placeholder="YYYY-AA-GG" name="isci_dogum_tarihi" value="{{ isciler.isci_dogum_tarihi }}">
+    </div>
+    <div class="form-group col-md-4" >
+  <br>
+        <input type="hidden" name="isci_id" value={{ isciler.isci_id }}>
+      <button type="submit" class="btn btn-primary" >İşçi Güncelle</button>
+    </div>
+  </div>
+
+</form>
+
+    {% endif %}
+{% endblock %}
+
+

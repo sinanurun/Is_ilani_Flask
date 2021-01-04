@@ -1,0 +1,36 @@
+{% extends "isveren.html" %}
+
+{% block sayfa_baslik %}
+İşveren Sayfası- Pasif İlanlar
+{% endblock %}
+
+{% block icerik_baslik %}
+    Aşağıda Pasif İlanları Bulabilirsiniz
+{% endblock %}
+
+    {% block icerik %}
+
+ <table class="table table-sm table-primary">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">İlan İd</th>
+      <th scope="col">İlan Başlığı</th>
+      <th scope="col">İlan Tarihi</th>
+      <th scope="col">İlan Detayları</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for ilan in ilanlar %}
+      <tr>
+      <th scope="row">{{ ilan.ilan_id }}</th>
+      <td>{{ ilan.ilan_baslik }}</td>
+      <td>{{ ilan.ilan_tarihi }}</td>
+      <td><a href= "/isveren_ilan_detay/{{ ilan.ilan_id}}" >İlan Detayları</a></td>
+    </tr>
+  {% endfor %}
+
+     </tbody>
+</table>
+    {% endblock %}
+
+

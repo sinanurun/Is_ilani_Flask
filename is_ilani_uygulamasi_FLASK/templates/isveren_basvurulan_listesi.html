@@ -1,0 +1,42 @@
+
+{% extends "isveren.html" %}
+
+{% block sayfa_baslik %}
+İşveren Sayfası- Başvuran Detayları
+{% endblock %}
+
+{% block icerik_baslik %}
+    Aşağıda Başvurulan İlan Listesini Bulabilirsiniz
+{% endblock %}
+
+    {% block icerik %}
+
+ <table class="table table-sm table-primary">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">İlan İd</th>
+      <th scope="col">İlan Başlığı</th>
+      <th scope="col">İlan Tarihi</th>
+        <th scope="col">İlan Durumu</th>
+      <th scope="col">İlan Detayları</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for ilan in ilanlar %}
+      {% if ilan.basvuran_idler!="" or None %}
+            <tr>
+      <th scope="row">{{ ilan.ilan_id }}</th>
+      <td>{{ ilan.ilan_baslik }}</td>
+      <td>{{ ilan.ilan_tarihi }}</td>
+        <td>{% if ilan.ilan_durum == 0 %}Aktif {% else %} Pasif{% endif %}</td>
+      <td><a href= "/isveren_ilan_detay/{{ ilan.ilan_id}}" >İlan Detayları</a></td>
+    </tr>
+      {% endif %}
+
+  {% endfor %}
+
+     </tbody>
+</table>
+    {% endblock %}
+
+

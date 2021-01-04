@@ -1,0 +1,145 @@
+{% extends "yonetici.html" %}
+
+{% block sayfa_baslik %}
+Yönetici Sayfası - İşçi GüncellemeSayfası
+{% endblock %}
+
+{% block icerik_baslik %}
+İŞKUR İş ve İşçi İlan Sitesi İşveren Güncelleme Sayfasındasınız {{ yonetici.yonetici_adi_soyadi.upper() }}<br>
+    Aşağıdaki Formu Doldurarak Seçili İşvereni Güncelleyebilirsiniz
+{% endblock %}
+
+
+{% block icerik %}
+    
+    {% if mesaj %}
+
+    <div class="alert alert-success" role="alert">
+
+İşveren Güncelleme Ekleme İşleminiz {{ mesaj }} İle Sonuçlanmıştır<br>
+ Yukarıda Bulunan Menü Aracılığı ile Yapmak İstediğiniz İşlemi Seçebilirsiniz
+
+
+</div>
+     {% else %}
+
+
+        <form action="/isveren_guncelle" method="post" enctype="multipart/form-data">
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label>İşyeri Adı </label>
+      <input type="text" class="form-control" id="inputEmail4" name="isyeri_adi" value="{{isveren.isyeri_adi }}">
+    </div>
+          <div class="form-group col-md-3">
+      <label>İşyeri Yönetici Adı Soyadı </label>
+      <input type="text" class="form-control" id="inputEmail4"  name="isyeri_yonetici_adi_soyadi" value="{{isveren.isyeri_yonetici_adi_soyadi }}">
+    </div>
+    <div class="form-group col-md-3">
+      <label >İşveren TC No</label>
+      <input type="text" class="form-control" id="inputPassword4"  name="isyeri_tc" value="{{ isveren.isyeri_tc }}">
+    </div>
+          <div class="form-group col-md-3">
+      <label >İşveren Şifre</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="Şifre" name="isyeri_sifre" value="{{ isveren.isyeri_sifre }}">
+    </div>
+
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label >Telefon</label>
+      <input type="text" class="form-control" id="inputEmail4" placeholder="Telefon" name="isyeri_tel" value="{{ isveren.isyeri_tel }}">
+    </div>
+    <div class="form-group col-md-4">
+      <label >Adres</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="Adres" name="isyeri_adres" value="{{ isveren.isyeri_adres}}">
+    </div>
+         <div class="form-group col-md-4">
+      <label >E mail</label>
+      <input type="text" class="form-control" id="inputPassword4" placeholder="E Mail" name="isyeri_email" value="{{ isveren.isyeri_email }}">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputState">İşyeri Durum</label>
+      <select id="inputState" class="form-control" name="isyeri_durum">
+        <option selected value="0">Aktif</option>
+        <option value="1">Pasif</option>
+      </select>
+    </div>
+    <div class="form-group col-md-4" >
+  <label for="inputState">İşçi Resmi</label><br>
+        <img src="{{ isveren.isyeri_foto }}" width="200" height="300"><br>
+<input type="file"  class="form-control" name="isyeri_foto" placeholder="Resim Seçiniz">
+  </div>
+    <div class="form-group col-md-4" >
+  <br>
+        <input type="hidden" name="isyeri_id" value={{ isveren.isyeri_id }}>
+      <button type="submit" class="btn btn-primary" >İşyeri Güncelle</button>
+    </div>
+  </div>
+
+
+
+</form>
+
+
+{#        <form action="/isci_guncelle" method="post">#}
+{#  <div class="form-row">#}
+{#    <div class="form-group col-md-4">#}
+{#      <label>Üye Adı Soyadı</label>#}
+{#      <input type="text" class="form-control" id="inputEmail4" placeholder="Üye Adı Soyadı" name="uye_adi_soyadi" value={{ uyeler.uye_adi_soyadi }}>#}
+{#    </div>#}
+{#    <div class="form-group col-md-4">#}
+{#      <label >Üye TC No</label>#}
+{#      <input type="text" class="form-control" id="inputPassword4" placeholder="Üye TC No" name="uye_tc" value={{ uyeler.uye_tc }}>#}
+{#    </div>#}
+{#          <div class="form-group col-md-4">#}
+{#      <label >Üye Şifre</label>#}
+{#      <input type="text" class="form-control" id="inputPassword4" placeholder="Şifre" name="uye_sifre" value={{ uyeler.uye_sifre}}>#}
+{#    </div>#}
+{#  </div>#}
+{#  <div class="form-row">#}
+{#    <div class="form-group col-md-4">#}
+{#      <label >Telefon</label>#}
+{#      <input type="text" class="form-control" id="inputEmail4" placeholder="Telefon" name="uye_tel" value={{ uyeler.uye_tel}}>#}
+{#    </div>#}
+{#    <div class="form-group col-md-4">#}
+{#      <label >Adres</label>#}
+{#      <input type="text" class="form-control" id="inputPassword4" placeholder="Adres" name="uye_adres"  value={{ uyeler.uye_adres}}>#}
+{#    </div>#}
+{#         <div class="form-group col-md-4">#}
+{#      <label >E mail</label>#}
+{#      <input type="text" class="form-control" id="inputPassword4" placeholder="uye_email" name="uye_email" value={{ uyeler.uye_email }}>#}
+{#    </div>#}
+{#  </div>#}
+{#  <div class="form-row">#}
+{#    <div class="form-group col-md-4">#}
+{#      <label for="inputState">Üye Durum</label>#}
+{#      <select id="inputState" class="form-control" name="uye_durum">#}
+{#        <option selected value="0">Aktif</option>#}
+{#        <option value="1">Pasif</option>#}
+{#      </select>#}
+{#    </div>#}
+{#    <div class="form-group col-md-4">#}
+{#      <label for="inputState">Dernekteki Pozisyonu</label>#}
+{#      <select id="inputState" class="form-control" name="uye_yonetim">#}
+{#        <option selected value="2">Üye</option>#}
+{#        <option value="1">Yönetici</option>#}
+{#          <option value="0">Başkan</option>#}
+{#      </select>#}
+{#    </div>#}
+{#    <div class="form-group col-md-4" >#}
+{#  <br>#}
+{#        <input type="hidden" name="uye_id" value={{ uyeler.uye_id }}>#}
+{#      <button type="submit" class="btn btn-primary" >Üye Güncelle</button>#}
+{#    </div>#}
+{#  </div>#}
+{##}
+{##}
+{#</form>#}
+
+    {% endif %}
+{% endblock %}
+
+
